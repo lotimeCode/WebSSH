@@ -9,6 +9,7 @@
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jtopo-0.4.8-min.js"></script>
 <script>
     // openTerminal( {
     //     operate:'connect',
@@ -17,14 +18,14 @@
     //     username: 'admin',//用户名
     //     password: 'admin'//密码*/
     // });
-    function openTerminal(){
-        var options = {
-            operate:'connect',
-            host: document.getElementById("ip").value,//IP
-            port: document.getElementById("port").value,//端口号
-            username: document.getElementById("username").value,//用户名
-            password: document.getElementById("pw").value//密码*/
-        };
+    function openTerminal(options){
+        // var options = {
+        //     operate:'connect',
+        //     host: document.getElementById("ip").value,//IP
+        //     port: document.getElementById("port").value,//端口号
+        //     username: document.getElementById("username").value,//用户名
+        //     password: document.getElementById("pw").value//密码*/
+        // };
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
@@ -63,14 +64,110 @@
             }
         });
     }
+
+    function masterHandle(){
+        window.alert("master");
+    }
+    function slave1Handle(){
+        window.alert("slave1");
+    }
+    function slave2Handle(){
+        window.alert("slave2");
+    }
+    function slave3Handle(){
+        window.alert("slave3");
+    }
+
+    $(document).ready(function(){
+        var canvas = document.getElementById('canvas');
+        var stage = new JTopo.Stage(canvas);
+        //显示工具栏
+        // showJTopoToobar(stage);
+        var scene = new JTopo.Scene();
+        stage.frames = 24;
+        scene.background = '../img/background.jpg';
+        stage.add(scene);
+
+        function create_node(x, y, name){
+            var node = new JTopo.CircleNode(name);
+            node.radius = 20;
+            node.fillColor = JTopo.util.randomColor();
+            node.setLocation(x, y);
+            if (name=="master(127.0.0.1:8091)") {
+                node.addEventListener("click", masterHandle);
+            }else if(name=="slave1(127.0.0.1:8092)"){
+                node.addEventListener("click", slave1Handle);
+            }else if(name=="slave2(127.0.0.1:8093)"){
+                node.addEventListener("click", slave2Handle);
+            }else if(name=="slave3(127.0.0.1:8094)"){
+                node.addEventListener("click", slave3Handle);
+            }
+            scene.add(node);
+            return node;
+        }
+
+        var masterOption = {
+            operate:'connect',
+            host: "127.0.0.1",
+            port: "8091",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        var slave1Option = {
+            operate:'connect',
+            host: "127.0.0.1",
+            port: "8092",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        var slave2Option = {
+            operate:'connect',
+            host: "127.0.0.1",
+            port: "8093",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        var slave3Option = {
+            operate:'connect',
+            host: "127.0.0.1",
+            port: "8094",
+            username: "hadoop",
+            password: "hadoop"
+        };
+
+        // 节点
+        var master = create_node(300, 100, 'master(127.0.0.1:8091)',masterOption);
+        var node1 = create_node(100, 300, 'slave1(127.0.0.1:8092)',slave1Option);
+        var node2 = create_node(300, 300, 'slave2(127.0.0.1:8093)',slave2Option);
+        var node3 = create_node(500, 300, 'slave3(127.0.0.1:8094)',slave3Option);
+
+        // 连线
+        scene.add(new JTopo.Link(master, node1));
+        scene.add(new JTopo.Link(master, node2));
+        scene.add(new JTopo.Link(master, node3));
+
+        // // 弹性效果（引力、摩擦系数)
+        // var effect = JTopo.Effect.spring({
+        //     grivity: 10 // 引力 (可以为负值)
+        // })
+        //
+        // // 效果作用对象(node节点以targetNode为目标，产生弹性效果)
+        // effect.addNode(node1, master);
+        // effect.addNode(node2, master);
+        // effect.addNode(node3, master);
+        //
+        // // 播放
+        // effect.play();
+    });
 </script>
 <body>
-<div id="terminal" style="width: 100%;height: 100%">
-    ip:<input type="text" id="ip"><br/>
-    port:<input type="text" id="port"><br/>
-    username:<input type="text" id="username"><br/>
-    password:<input type="text" id="pw"><br/><br/>
-    <input type="submit" value="Submit" onclick="openTerminal()"/>
-</div>
+<!--<div id="terminal" style="width: 100%;height: 100%">-->
+<!--    ip:<input type="text" id="ip"><br/>-->
+<!--    port:<input type="text" id="port"><br/>-->
+<!--    username:<input type="text" id="username"><br/>-->
+<!--    password:<input type="text" id="pw"><br/><br/>-->
+<!--    <input type="submit" value="Submit" onclick="openTerminal()"/>-->
+<!--</div>-->
+<canvas id='canvas'width="600" height="400" style="border: solid 1px #3cff3b"></canvas>
 </body>
 </html>
