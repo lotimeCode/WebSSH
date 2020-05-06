@@ -4,21 +4,27 @@
     <title>WebSSH</title>
     <link rel="stylesheet" href="../css/xterm.css" />
 </head>
-<body>
-<div id="terminal" style="width: 100%;height: 100%"></div>
+
 
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
 <script>
-    openTerminal( {
-        /*operate:'connect',
-        host: '',//IP
-        port: '',//端口号
-        username: '',//用户名
-        password: ''//密码*/
-    });
-    function openTerminal(options){
+    // openTerminal( {
+    //     operate:'connect',
+    //     host: '10.219.192.64',//IP
+    //     port: '22',//端口号
+    //     username: 'admin',//用户名
+    //     password: 'admin'//密码*/
+    // });
+    function openTerminal(){
+        var options = {
+            operate:'connect',
+            host: document.getElementById("ip").value,//IP
+            port: document.getElementById("port").value,//端口号
+            username: document.getElementById("username").value,//用户名
+            password: document.getElementById("pw").value//密码*/
+        };
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
@@ -58,5 +64,13 @@
         });
     }
 </script>
+<body>
+<div id="terminal" style="width: 100%;height: 100%">
+    ip:<input type="text" id="ip"><br/>
+    port:<input type="text" id="port"><br/>
+    username:<input type="text" id="username"><br/>
+    password:<input type="text" id="pw"><br/><br/>
+    <input type="submit" value="Submit" onclick="openTerminal()"/>
+</div>
 </body>
 </html>

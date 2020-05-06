@@ -144,6 +144,7 @@ public class WebSSHServiceImpl implements WebSSHService {
         session.setConfig(config);
         //设置密码
         session.setPassword(webSSHData.getPassword());
+        session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
         //连接  超时时间30s
         session.connect(30000);
 
