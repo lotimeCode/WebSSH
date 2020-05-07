@@ -66,16 +66,68 @@
     }
 
     function masterHandle(){
-        window.alert("master");
+        var thisNode=document.getElementById("terminal");
+        var parentDiv = thisNode.parentElement;
+        parentDiv.removeChild(thisNode);
+        var newDiv = document.createElement('div');
+        newDiv.innerHTML = "<div id='terminal' style='width: 100%;height: 100%'></div>";
+        parentDiv.appendChild(newDiv);
+        var masterOption = {
+            operate:'connect',
+            host: "192.168.80.101",
+            port: "22",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        openTerminal(masterOption);
     }
     function slave1Handle(){
-        window.alert("slave1");
+        var thisNode=document.getElementById("terminal");
+        var parentDiv = thisNode.parentElement;
+        parentDiv.removeChild(thisNode);
+        var newDiv = document.createElement('div');
+        newDiv.innerHTML = "<div id='terminal' style='width: 100%;height: 100%'></div>";
+        parentDiv.appendChild(newDiv);
+        var slave1Option = {
+            operate:'connect',
+            host: "192.168.80.102",
+            port: "22",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        openTerminal(slave1Option);
     }
     function slave2Handle(){
-        window.alert("slave2");
+        var thisNode=document.getElementById("terminal");
+        var parentDiv = thisNode.parentElement;
+        parentDiv.removeChild(thisNode);
+        var newDiv = document.createElement('div');
+        newDiv.innerHTML = "<div id='terminal' style='width: 100%;height: 100%'></div>";
+        parentDiv.appendChild(newDiv);
+        var slave2Option = {
+            operate:'connect',
+            host: "192.168.80.103",
+            port: "22",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        openTerminal(slave2Option);
     }
     function slave3Handle(){
-        window.alert("slave3");
+        var thisNode=document.getElementById("terminal");
+        var parentDiv = thisNode.parentElement;
+        parentDiv.removeChild(thisNode);
+        var newDiv = document.createElement('div');
+        newDiv.innerHTML = "<div id='terminal' style='width: 100%;height: 100%'></div>";
+        parentDiv.appendChild(newDiv);
+        var slave3Option = {
+            operate:'connect',
+            host: "192.168.80.104",
+            port: "22",
+            username: "hadoop",
+            password: "hadoop"
+        };
+        openTerminal(slave3Option);
     }
 
     $(document).ready(function(){
@@ -93,53 +145,25 @@
             node.radius = 20;
             node.fillColor = JTopo.util.randomColor();
             node.setLocation(x, y);
-            if (name=="master(127.0.0.1:8091)") {
+            if (name=="master(10.219.192.64:8091)") {
                 node.addEventListener("click", masterHandle);
-            }else if(name=="slave1(127.0.0.1:8092)"){
+            }else if(name=="slave1(10.219.192.64:8092)"){
                 node.addEventListener("click", slave1Handle);
-            }else if(name=="slave2(127.0.0.1:8093)"){
+            }else if(name=="slave2(10.219.192.64:8093)"){
                 node.addEventListener("click", slave2Handle);
-            }else if(name=="slave3(127.0.0.1:8094)"){
+            }else if(name=="slave3(10.219.192.64:8094)"){
                 node.addEventListener("click", slave3Handle);
             }
             scene.add(node);
             return node;
         }
 
-        var masterOption = {
-            operate:'connect',
-            host: "127.0.0.1",
-            port: "8091",
-            username: "hadoop",
-            password: "hadoop"
-        };
-        var slave1Option = {
-            operate:'connect',
-            host: "127.0.0.1",
-            port: "8092",
-            username: "hadoop",
-            password: "hadoop"
-        };
-        var slave2Option = {
-            operate:'connect',
-            host: "127.0.0.1",
-            port: "8093",
-            username: "hadoop",
-            password: "hadoop"
-        };
-        var slave3Option = {
-            operate:'connect',
-            host: "127.0.0.1",
-            port: "8094",
-            username: "hadoop",
-            password: "hadoop"
-        };
 
         // 节点
-        var master = create_node(300, 100, 'master(127.0.0.1:8091)',masterOption);
-        var node1 = create_node(100, 300, 'slave1(127.0.0.1:8092)',slave1Option);
-        var node2 = create_node(300, 300, 'slave2(127.0.0.1:8093)',slave2Option);
-        var node3 = create_node(500, 300, 'slave3(127.0.0.1:8094)',slave3Option);
+        var master = create_node(500, 50, 'master(10.219.192.64:8091)');
+        var node1 = create_node(300, 200, 'slave1(10.219.192.64:8092)');
+        var node2 = create_node(500, 200, 'slave2(10.219.192.64:8093)');
+        var node3 = create_node(700, 200, 'slave3(10.219.192.64:8094)');
 
         // 连线
         scene.add(new JTopo.Link(master, node1));
@@ -161,13 +185,13 @@
     });
 </script>
 <body>
-<!--<div id="terminal" style="width: 100%;height: 100%">-->
-<!--    ip:<input type="text" id="ip"><br/>-->
-<!--    port:<input type="text" id="port"><br/>-->
-<!--    username:<input type="text" id="username"><br/>-->
-<!--    password:<input type="text" id="pw"><br/><br/>-->
-<!--    <input type="submit" value="Submit" onclick="openTerminal()"/>-->
-<!--</div>-->
-<canvas id='canvas'width="600" height="400" style="border: solid 1px #3cff3b"></canvas>
+<canvas id='canvas'width="1000" height="300" style="border: solid 1px #3cff3b"></canvas>
+<div id="terminal" style="width: 100%;height: 100%">
+    <!--ip:<input type="text" id="ip"><br/>-->
+    <!--port:<input type="text" id="port"><br/>-->
+    <!--username:<input type="text" id="username"><br/>-->
+    <!--password:<input type="text" id="pw"><br/><br/>-->
+    <!--<input type="submit" value="Submit" onclick="openTerminal()"/>-->
+</div>
 </body>
 </html>

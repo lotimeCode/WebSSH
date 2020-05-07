@@ -1,5 +1,6 @@
 server:
   port: 8080
+  address: 10.219.192.64
 spring:
   mvc:
     view:
