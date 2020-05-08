@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>WebSSH</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/xterm.css" />
 </head>
 
@@ -28,8 +29,8 @@
         // };
         var client = new WSSHClient();
         var term = new Terminal({
-            cols: 97,
-            rows: 37,
+            cols: 80,
+            rows: 28,
             cursorBlink: true, // 光标闪烁
             cursorStyle: "block", // 光标样式  null | 'block' | 'underline' | 'bar'
             scrollback: 800, //回滚
@@ -187,7 +188,8 @@
 <body>
 <div>
 <a href="http://10.219.192.64:50070" target="_blank">Hadoop</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="http://10.219.192.165:8443/" target="_blank">Web IDE</a>
+    <a href="http://10.219.192.165:8443/" target="_blank">Web IDE</a>&nbsp;&nbsp;<nobr>(pw:d438f3ad503fe232a18a8bba)</nobr>
+    <p>可使用图中ip port,使用hadoop/hadoop ssh到对应的虚拟机</p>
 </div>
 <canvas id='canvas'width="1000" height="300" style="border: solid 1px #3cff3b"></canvas>
 <div id="terminal" style="width: 100%;height: 100%">
