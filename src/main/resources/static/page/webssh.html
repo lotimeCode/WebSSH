@@ -141,8 +141,11 @@
         scene.background = '../img/background.jpg';
         stage.add(scene);
 
-        function create_node(x, y, name){
+        function create_node(x, y, name,position){
             var node = new JTopo.CircleNode(name);
+            if (position != null) {
+                node.textPosition=position;
+            }
             node.radius = 20;
             node.fillColor = JTopo.util.randomColor();
             node.setLocation(x, y);
@@ -161,7 +164,7 @@
 
 
         // 节点
-        var master = create_node(500, 50, 'master(10.219.192.64:8091)');
+        var master = create_node(500, 50, 'master(10.219.192.64:8091)','Top_Center');
         var node1 = create_node(300, 200, 'slave1(10.219.192.64:8092)');
         var node2 = create_node(500, 200, 'slave2(10.219.192.64:8093)');
         var node3 = create_node(700, 200, 'slave3(10.219.192.64:8094)');
